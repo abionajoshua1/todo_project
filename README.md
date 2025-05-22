@@ -16,6 +16,7 @@ A simple Todo list web application built with Django. Users can add, view, and m
 - HTML & CSS
 
 📌 Todo
+
  Add user authentication
 
  Add task editing

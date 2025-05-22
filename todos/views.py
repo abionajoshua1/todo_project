@@ -22,3 +22,6 @@ def mark_completed(request, todo_id):
         todo.save()
     return redirect('home')
     
+def profile_view(request):
+    return render(request, 'profile.html')
+

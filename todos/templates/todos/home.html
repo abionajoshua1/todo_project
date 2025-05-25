@@ -25,6 +25,7 @@
       background-color: var(--bg);
       color: var(--text);
       display: flex;
+      min-height: 100vh;
     }
 
     .sidebar {
@@ -40,7 +41,6 @@
       justify-content: space-between;
     }
 
-    
     .menu-top a,
     .logout-bottom a {
       display: block;
@@ -193,16 +193,16 @@
 </head>
 <body>
 
-<div class="sidebar">
-  <div class="menu-top">
-    <h2>📋 Menu</h2>
-    <a href="{% url 'profile' %}">👤 Profile</a>
-    <a href="{% url 'home' %}">📝 Tasks</a>
+  <div class="sidebar">
+    <div class="menu-top">
+      <h2>📋 Menu</h2>
+      <a href="{% url 'profile' %}">👤 Profile</a>
+      <a href="{% url 'home' %}">📝 Tasks</a>
+    </div>
+    <div class="logout-bottom">
+      <a href="{% url 'logout' %}">🚪 Logout</a>
+    </div>
   </div>
-  <div class="logout-bottom">
-    <a href="{% url 'logout' %}">🚪 Logout</a>
-  </div>
-</div>
 
   <div class="main-content">
     <h1>My Todo List</h1>

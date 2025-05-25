@@ -24,3 +24,4 @@ A simple Todo list web application built with Django. Users can add, view, and m
  Deploy online (e.g., Heroku, Render)
 
  improve the styling
+ 

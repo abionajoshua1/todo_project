@@ -1,122 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Login</title>
-    <style>
-        /* Reset and base */
-        * {
-            box-sizing: border-box;
-        }
-        body {
-            margin: 0;
-            background-color: #1e1e2f;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #e0e0e0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            padding: 20px;
-        }
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <style>
+    :root {
+      --primary: #7b68ee;
+      --bg: #f7f8fa;
+      --text: #333;
+      --muted: #888;
+      --card-bg: #ffffff;
+      --border: #e0e0e0;
+    }
 
-        .login-container {
-            background-color: #2a2a3d;
-            padding: 40px 50px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-            width: 320px;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        h2 {
-            margin: 0 0 30px;
-            font-weight: 700;
-            font-size: 2rem;
-            color: #00bcd4;
-            text-align: center;
-        }
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #a0a0a0;
-            font-size: 0.9rem;
-        }
+    .login-box {
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      width: 100%;
+      max-width: 400px;
+    }
 
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 22px;
-            border-radius: 8px;
-            border: 1.5px solid #444;
-            background-color: #1e1e2f;
-            color: #e0e0e0;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
+    .login-box h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            outline: none;
-            border-color: #00bcd4;
-        }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
 
-        button {
-            width: 100%;
-            padding: 14px;
-            background-color: #00bcd4;
-            color: #1e1e2f;
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: 0 6px 12px rgba(0, 188, 212, 0.5);
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background-color: #fff;
+      font-size: 1rem;
+    }
 
-        button:hover {
-            background-color: #0097a7;
-            transform: translateY(-2px);
-        }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-        .messages p {
-            background-color: #ff4c4c;
-            padding: 10px 15px;
-            border-radius: 6px;
-            margin-bottom: 18px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: white;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(255, 76, 76, 0.5);
-        }
-    </style>
+    button:hover {
+      background-color: #6a5acd;
+    }
+
+    .messages p {
+      background-color: #ff4c4c;
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin-bottom: 18px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: white;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(255, 76, 76, 0.5);
+    }
+  </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
 
-        {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-        </div>
-        {% endif %}
+  <div class="login-box">
+    <h2>Login</h2>
 
-        <form method="post" novalidate>
-            {% csrf_token %}
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" required autofocus>
-
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" required>
-
-            <button type="submit">Login</button>
-        </form>
+    {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
     </div>
+    {% endif %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" required autofocus>
+
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required>
+
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
 </body>
 </html>

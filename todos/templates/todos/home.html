@@ -1,242 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Todo List</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <title>Todo List</title>
+  <style>
+    :root {
+      --primary: #7b68ee;
+      --bg: #f7f8fa;
+      --text: #333;
+      --muted: #888;
+      --sidebar-bg: #ffffff;
+      --card-bg: #ffffff;
+      --border: #e0e0e0;
+    }
 
-        body {
-            margin: 0;
-            display: flex;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1e1e2f;
-            color: #e0e0e0;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .sidebar {
-            width: 230px;
-            height: 100vh;
-            background-color: #12121c;
-            color: #ffffff;
-            padding: 30px 20px;
-            position: fixed;
-        }
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+    }
 
-        .sidebar h2 {
-            text-align: center;
-            font-weight: 700;
-            margin-bottom: 30px;
-        }
+    .sidebar {
+      width: 220px;
+      background-color: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      padding: 30px 20px;
+      height: 100vh;
+      position: fixed;
 
-        .sidebar a,
-        .sidebar form button {
-            all: unset;
-            display: block;
-            padding: 12px 18px;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            font-size: 1rem;
-            text-align: left;
-            cursor: pointer;
-            width: 90%;
-            background-color: transparent;
-            font-family: inherit;
-            transition: background-color 0.3s ease;
-        }
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-        .sidebar a:hover,
-        .sidebar form button:hover {
-            background-color: #2d2d44;
-        }
+    
+    .menu-top a,
+    .logout-bottom a {
+      display: block;
+      padding: 10px 16px;
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      transition: background 0.2s ease;
+    }
 
-        .sidebar form {
-            margin: 0;
-            padding: 0;
-        }
+    .menu-top a:hover,
+    .logout-bottom a:hover {
+      background-color: #f0f0f5;
+    }
 
-        .main-content {
-            margin-left: 230px;
-            padding: 40px;
-            max-width: 700px;
-            width: 100%;
-        }
+    .sidebar h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 30px;
+      color: var(--primary);
+      text-align: center;
+    }
 
-        h1 {
-            text-align: center;
-            font-weight: 700;
-            margin-bottom: 30px;
-            color: #00bcd4;
-        }
+    .sidebar a {
+      display: block;
+      padding: 10px 16px;
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      transition: background 0.2s ease;
+    }
 
-        form {
-            background: #2a2a3d;
-            padding: 25px 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            margin-bottom: 35px;
-        }
+    .sidebar a:hover {
+      background-color: #f0f0f5;
+    }
 
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 18px;
-            border-radius: 8px;
-            border: 1.5px solid #444;
-            background-color: #1e1e2f;
-            color: #f0f0f0;
-        }
+    .main-content {
+      margin-left: 220px;
+      padding: 40px;
+      width: 100%;
+    }
 
-        input[type="text"]:focus,
-        textarea:focus {
-            border-color: #00bcd4;
-            outline: none;
-        }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
 
-        button {
-            background-color: #00bcd4;
-            color: #fff;
-            padding: 10px 18px;
-            font-size: 0.95rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 188, 212, 0.4);
-        }
+    form {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+      border: 1px solid var(--border);
+    }
 
-        button:hover {
-            background-color: #0097a7;
-            transform: translateY(-2px);
-        }
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
 
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
 
-        li {
-            background: #2f2f47;
-            padding: 18px 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
-            margin-bottom: 14px;
-        }
+    button:hover {
+      background-color: #6a5acd;
+    }
 
-        li strong {
-            font-size: 1.1rem;
-            color: #ffffff;
-        }
+    ul {
+      list-style: none;
+      margin-top: 20px;
+    }
 
-        .status {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
+    li {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
 
-        .completed {
-            color: #4caf50;
-        }
+    li strong {
+      font-size: 1.1rem;
+    }
 
-        .pending {
-            color: #ff9800;
-        }
+    .status {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
 
-        form.mark-completed-form button {
-            background-color: #607d8b;
-            padding: 5px 12px;
-            font-size: 0.85rem;
-            border-radius: 6px;
-            font-weight: 600;
-            box-shadow: 0 3px 6px rgba(96, 125, 139, 0.4);
-        }
+    .completed {
+      background-color: #e0f7e9;
+      color: #388e3c;
+    }
 
-        form.mark-completed-form button:hover {
-            background-color: #455a64;
-            transform: translateY(-2px);
-        }
+    .pending {
+      background-color: #fff4e5;
+      color: #ef6c00;
+    }
 
-        .status-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
+    form.mark-completed-form {
+      display: inline;
+    }
 
-        small {
-            color: #aaaaaa;
-            font-size: 0.8rem;
-        }
+    form.mark-completed-form button {
+      background-color: #e0e0e0;
+      color: #333;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      margin-left: 10px;
+    }
 
-        @media (max-width: 768px) {
-            .sidebar {
-                display: none;
-            }
+    small {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+    }
 
-            .main-content {
-                margin: 0;
-                padding: 20px;
-            }
-        }
-    </style>
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+
+      .main-content {
+        margin: 0;
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <h2>📋 Menu</h2>
-        <a href="{% url 'profile' %}">👤 Profile</a>
-        <a href="{% url 'home' %}">📝 Tasks</a>
-        <form method="post" action="{% url 'logout' %}">
+<div class="sidebar">
+  <div class="menu-top">
+    <h2>📋 Menu</h2>
+    <a href="{% url 'profile' %}">👤 Profile</a>
+    <a href="{% url 'home' %}">📝 Tasks</a>
+  </div>
+  <div class="logout-bottom">
+    <a href="{% url 'logout' %}">🚪 Logout</a>
+  </div>
+</div>
+
+  <div class="main-content">
+    <h1>My Todo List</h1>
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Add Todo</button>
+    </form>
+
+    <ul>
+      {% for todo in todos %}
+        <li>
+          <strong>{{ todo.title }}</strong>
+          <p>{{ todo.description }}</p>
+
+          <span class="status {% if todo.completed %}completed{% else %}pending{% endif %}">
+            {% if todo.completed %}
+              ✅ Completed
+            {% else %}
+              ⏳ Pending
+            {% endif %}
+          </span>
+
+          {% if not todo.completed %}
+          <form method="POST" action="{% url 'mark_completed' todo.id %}" class="mark-completed-form">
             {% csrf_token %}
-            <button type="submit">🚪 Logout</button>
-        </form>
-    </div>
+            <button type="submit">Mark Completed</button>
+          </form>
+          {% endif %}
 
-    <div class="main-content">
-        <h1>My Todo List</h1>
-
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Add Todo</button>
-        </form>
-
-        <ul>
-            {% for todo in todos %}
-            <li>
-                <strong>{{ todo.title }}</strong>
-                <p>{{ todo.description }}</p>
-
-                <div class="status-container">
-                    <span class="status {% if todo.completed %}completed{% else %}pending{% endif %}">
-                        {% if todo.completed %}
-                            ✅ Completed
-                        {% else %}
-                            ⏳ Pending
-                        {% endif %}
-                    </span>
-
-                    {% if not todo.completed %}
-                    <form method="POST" action="{% url 'mark_completed' todo.id %}" class="mark-completed-form">
-                        {% csrf_token %}
-                        <button type="submit">Mark Completed</button>
-                    </form>
-                    {% endif %}
-                </div>
-
-                <small>Created: {{ todo.created_at|date:"M d, Y H:i" }}</small>
-            </li>
-            {% empty %}
-            <li>No todos yet.</li>
-            {% endfor %}
-        </ul>
-    </div>
+          <small>Created: {{ todo.created_at|date:"M d, Y H:i" }}</small>
+        </li>
+      {% empty %}
+        <li>No todos yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
 
 </body>
 </html>

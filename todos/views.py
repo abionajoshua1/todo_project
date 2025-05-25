@@ -42,8 +42,6 @@ def login_view(request):
     return render(request, 'todos/login.html')
 
 def custom_logout_view(request):
-    if request.method == 'POST':
-        logout(request)
-        return render(request, 'todos/logout.html')  # render your logged out page
-    else:
-        return redirect('home')
+    logout(request)
+    # return render(request, 'todos/logout.html')
+    return redirect('login')

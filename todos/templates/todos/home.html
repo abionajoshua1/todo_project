@@ -12,6 +12,8 @@
       --sidebar-bg: #ffffff;
       --card-bg: #ffffff;
       --border: #e0e0e0;
+      --green: #4caf50;
+      --green-light: #e8f5e9;
     }
 
     * {
@@ -35,7 +37,6 @@
       padding: 30px 20px;
       height: 100vh;
       position: fixed;
-
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -63,20 +64,6 @@
       margin-bottom: 30px;
       color: var(--primary);
       text-align: center;
-    }
-
-    .sidebar a {
-      display: block;
-      padding: 10px 16px;
-      color: var(--text);
-      text-decoration: none;
-      border-radius: 6px;
-      margin-bottom: 10px;
-      transition: background 0.2s ease;
-    }
-
-    .sidebar a:hover {
-      background-color: #f0f0f5;
     }
 
     .main-content {
@@ -162,15 +149,31 @@
     }
 
     form.mark-completed-form {
-      display: inline;
+      display: inline-block;
+      margin-top: 12px;
+      border: none;
+      padding: 0;
+      outline: none;
     }
 
     form.mark-completed-form button {
-      background-color: #e0e0e0;
-      color: #333;
-      padding: 6px 12px;
-      font-size: 0.8rem;
-      margin-left: 10px;
+      background-color: transparent;
+      color: var(--primary);
+      border: 1px solid rgba(123, 104, 238, 0.6);
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 3px rgba(123, 104, 238, 0.2);
+    }
+
+    form.mark-completed-form button:hover {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(123, 104, 238, 0.5);
     }
 
     small {
@@ -230,11 +233,12 @@
           {% if not todo.completed %}
           <form method="POST" action="{% url 'mark_completed' todo.id %}" class="mark-completed-form">
             {% csrf_token %}
-            <button type="submit">Mark Completed</button>
+            <button type="submit">✔️ Mark Completed</button>
           </form>
           {% endif %}
 
           <small>Created: {{ todo.created_at|date:"M d, Y H:i" }}</small>
+          <small>Last Updated: {{ todo.updated_at|date:"M d, Y H:i" }}</small>
         </li>
       {% empty %}
         <li>No todos yet.</li>

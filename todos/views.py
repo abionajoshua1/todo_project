@@ -45,3 +45,4 @@ def custom_logout_view(request):
     logout(request)
     # return render(request, 'todos/logout.html')
     return redirect('login')
+

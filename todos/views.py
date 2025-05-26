@@ -46,3 +46,11 @@ def custom_logout_view(request):
     # return render(request, 'todos/logout.html')
     return redirect('login')
 
+def edit_todo(request, id):
+    todo = get_object_or_404(Todo, id=id)
+    if request.method == 'POST':
+        todo.title = request.POST['title']
+        todo.description = request.POST['description']
+        todo.save()
+        return redirect('home')
+    return redirect('home')

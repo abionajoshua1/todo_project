@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Login</title>
+  <title>Register</title>
   <style>
     :root {
       --primary: #7b68ee;
@@ -30,7 +30,7 @@
       padding: 20px;
     }
 
-    .login-box {
+    .register-box {
       background: var(--card-bg);
       padding: 40px;
       border-radius: 12px;
@@ -40,7 +40,7 @@
       max-width: 400px;
     }
 
-    .login-box h2 {
+    .register-box h2 {
       font-size: 1.6rem;
       font-weight: 600;
       color: var(--primary);
@@ -56,7 +56,8 @@
     }
 
     input[type="text"],
-    input[type="password"] {
+    input[type="password"],
+    input[type="email"] {
       width: 100%;
       padding: 12px 14px;
       margin-bottom: 20px;
@@ -94,34 +95,49 @@
       text-align: center;
       box-shadow: 0 2px 8px rgba(255, 76, 76, 0.5);
     }
+
+    p {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .helptext {
+    display: none;
+    }
+    
   </style>
 </head>
 <body>
 
-  <div class="login-box">
-    <h2>Login</h2>
+  <div class="register-box">
+    <h2>Sign Up</h2>
 
     {% if messages %}
-    <div class="messages">
-      {% for message in messages %}
-        <p>{{ message }}</p>
-      {% endfor %}
-    </div>
+      <div class="messages">
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      </div>
     {% endif %}
 
-    <form method="post" novalidate>
+    <form method="POST" novalidate>
       {% csrf_token %}
-      <label for="username">Username</label>
-      <input type="text" name="username" id="username" required autofocus>
-
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" required>
-
-      <button type="submit">Login</button>
-
-      <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
-
+      {{ form.as_p }}
+      <button type="submit">Register</button>
     </form>
+
+    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
   </div>
 
 </body>

@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Todo
 from .forms import TodoForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
 def home(request):
@@ -45,6 +46,19 @@ def custom_logout_view(request):
     logout(request)
     # return render(request, 'todos/logout.html')
     return redirect('login')
+
+def register_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Registration successful. You can now log in.')
+            return redirect('login')
+        else:     
+            return render(request, 'todos/register.html', {'form': form})
+    else:
+        form = UserCreationForm()
+        return render(request, 'todos/register.html', {'form': form})
 
 def edit_todo(request, id):
     todo = get_object_or_404(Todo, id=id)

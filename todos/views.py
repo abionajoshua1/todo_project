@@ -5,6 +5,9 @@ from .forms import TodoForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from django.utils import timezone
+from datetime import date
+
 
 def home(request):
     if request.method == 'POST':
@@ -16,7 +19,7 @@ def home(request):
         form = TodoForm()
 
     todos = Todo.objects.all().order_by('-created_at')
-    return render(request, 'todos/home.html', {'form': form, 'todos': todos})
+    return render(request, 'todos/home.html', {'form': form, 'todos': todos, 'today': date.today()})
 
 def mark_completed(request, todo_id):
     if request.method == 'POST':
@@ -59,12 +62,14 @@ def register_view(request):
     else:
         form = UserCreationForm()
         return render(request, 'todos/register.html', {'form': form})
+    
 
 def edit_todo(request, id):
     todo = get_object_or_404(Todo, id=id)
     if request.method == 'POST':
-        todo.title = request.POST['title']
-        todo.description = request.POST['description']
-        todo.save()
-        return redirect('home')
+       form = TodoForm(request.POST, instance=todo)
+       if form.is_valid():
+           form.save()
+           return redirect('home')
+       
     return redirect('home')

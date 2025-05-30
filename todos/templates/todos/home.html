@@ -5,15 +5,14 @@
   <title>Todo List</title>
   <style>
     :root {
-      --primary: #7b68ee;
-      --bg: #f7f8fa;
-      --text: #333;
-      --muted: #888;
-      --sidebar-bg: #ffffff;
-      --card-bg: #ffffff;
-      --border: #e0e0e0;
-      --green: #4caf50;
-      --green-light: #e8f5e9;
+      --primary: #6c63ff;
+      --accent: #fceef3;
+      --card-bg: #292c35;
+      --bg: #fef6fb;
+      --text: #f7f7f7;
+      --muted: #b0b0b0;
+      --border: #3c3f4a;
+      --sidebar-bg: #1e1e28;
     }
 
     * {
@@ -33,7 +32,6 @@
     .sidebar {
       width: 220px;
       background-color: var(--sidebar-bg);
-      border-right: 1px solid var(--border);
       padding: 30px 20px;
       height: 100vh;
       position: fixed;
@@ -42,28 +40,29 @@
       justify-content: space-between;
     }
 
+    .sidebar h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
     .menu-top a,
     .logout-bottom a {
       display: block;
-      padding: 10px 16px;
+      padding: 12px 16px;
       color: var(--text);
       text-decoration: none;
-      border-radius: 6px;
-      margin-bottom: 10px;
+      border-radius: 10px;
+      margin-bottom: 12px;
       transition: background 0.2s ease;
+      font-weight: 500;
     }
 
     .menu-top a:hover,
     .logout-bottom a:hover {
-      background-color: #f0f0f5;
-    }
-
-    .sidebar h2 {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-bottom: 30px;
-      color: var(--primary);
-      text-align: center;
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
     .main-content {
@@ -73,43 +72,45 @@
     }
 
     h1 {
-      font-size: 1.8rem;
-      font-weight: 600;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1e1e28;
       margin-bottom: 30px;
     }
 
     form {
       background: var(--card-bg);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
       margin-bottom: 30px;
-      border: 1px solid var(--border);
     }
 
     input[type="text"],
     textarea {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      font-size: 0.95rem;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      background-color: #3a3a4f;
+      color: white;
     }
 
     button {
       background-color: var(--primary);
       color: white;
       border: none;
-      padding: 10px 18px;
-      border-radius: 6px;
+      padding: 10px 20px;
+      border-radius: 12px;
       font-weight: 600;
       cursor: pointer;
       transition: background 0.3s ease;
     }
 
     button:hover {
-      background-color: #6a5acd;
+      background-color: #817cff;
     }
 
     ul {
@@ -119,11 +120,11 @@
 
     li {
       background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 16px;
       padding: 20px;
-      margin-bottom: 15px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      color: var(--text);
     }
 
     li strong {
@@ -134,13 +135,14 @@
       display: inline-block;
       margin-top: 10px;
       font-size: 0.9rem;
-      padding: 4px 10px;
-      border-radius: 4px;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-weight: 600;
     }
 
     .completed {
       background-color: #e0f7e9;
-      color: #388e3c;
+      color: #2e7d32;
     }
 
     .pending {
@@ -151,40 +153,35 @@
     form.mark-completed-form {
       display: inline-block;
       margin-top: 12px;
-      border: none;
-      padding: 0;
-      outline: none;
     }
 
     form.mark-completed-form button {
       background-color: transparent;
       color: var(--primary);
-      border: 1px solid rgba(123, 104, 238, 0.6);
+      border: 1px solid rgba(108, 99, 255, 0.5);
       padding: 6px 14px;
-      font-size: 0.85rem;
-      border-radius: 12px;
+      font-size: 0.9rem;
+      border-radius: 10px;
       font-weight: 600;
-      cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 0 3px rgba(123, 104, 238, 0.2);
     }
 
     form.mark-completed-form button:hover {
       background-color: var(--primary);
       color: white;
-      border-color: var(--primary);
-      box-shadow: 0 4px 12px rgba(123, 104, 238, 0.5);
     }
 
     .edit-form input,
     .edit-form textarea {
-      margin-top: 8px;
-      margin-bottom: 10px;
-      padding: 8px;
+      margin-top: 10px;
+      margin-bottom: 12px;
+      padding: 10px 14px;
       width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      font-size: 0.9rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      background-color: #3a3a4f;
+      color: white;
     }
 
     .edit-form button {
@@ -192,7 +189,7 @@
       color: white;
       border: none;
       padding: 8px 14px;
-      border-radius: 6px;
+      border-radius: 10px;
       cursor: pointer;
       margin-top: 6px;
     }
@@ -200,7 +197,7 @@
     .edit-btn {
       background-color: transparent;
       color: var(--primary);
-      border: 1px solid rgba(123, 104, 238, 0.6);
+      border: 1px solid rgba(108, 99, 255, 0.5);
       padding: 4px 10px;
       font-size: 0.85rem;
       border-radius: 10px;
@@ -218,6 +215,31 @@
       display: block;
       margin-top: 10px;
       color: var(--muted);
+    }
+
+    /* New styles for due date */
+    .due-date {
+      font-size: 0.95rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .due-date strong {
+      color: var(--primary);
+      margin-right: 6px;
+    }
+
+    .due-date.overdue {
+      color: #ff4c4c;
+      font-weight: 700;
+    }
+
+    .overdue-label {
+      color: #ff4c4c;
+      font-weight: bold;
+      margin-top: 4px;
+      display: inline-block;
     }
 
     @media (max-width: 768px) {
@@ -243,7 +265,7 @@
 
   <div class="sidebar">
     <div class="menu-top">
-      <h2>📋 Menu</h2>
+      <h2>📘 Structured</h2>
       <a href="{% url 'profile' %}">👤 Profile</a>
       <a href="{% url 'home' %}">📝 Tasks</a>
     </div>
@@ -258,42 +280,52 @@
     <form method="POST">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit">Add Todo</button>
+      <button type="submit">➕ Add Todo</button>
     </form>
 
     <ul>
       {% for todo in todos %}
-        <li>
-          <strong>{{ todo.title }}</strong>
-          <p>{{ todo.description }}</p>
+      <li>
+        <strong>{{ todo.title }}</strong>
+        <p>{{ todo.description }}</p>
 
-          <span class="status {% if todo.completed %}completed{% else %}pending{% endif %}">
-            {% if todo.completed %}
-              ✅ Completed
-            {% else %}
-              ⏳ Pending
-            {% endif %}
-          </span>
+        {% if todo.due_date %}
+          <p class="due-date {% if todo.is_overdue %}overdue{% endif %}">
+            <strong>Due:</strong> {{ todo.due_date }}
+          {% comment %} </p>
+          {% if todo.is_overdue %}
+            <span class="overdue-label">⚠️ Overdue</span>
+          {% endif %} {% endcomment %}
+        {% endif %}
 
-          {% if not todo.completed %}
-            <form method="POST" action="{% url 'mark_completed' todo.id %}" class="mark-completed-form">
-              {% csrf_token %}
-              <button type="submit">✔️ Mark Completed</button>
-            </form>
-
-            <button class="edit-btn" onclick="toggleEditForm({{ todo.id }})">✏️ Edit</button>
-
-            <form method="POST" action="{% url 'edit_todo' todo.id %}" id="edit-form-{{ todo.id }}" class="edit-form" style="display: none;">
-              {% csrf_token %}
-              <input type="text" name="title" value="{{ todo.title }}" required />
-              <textarea name="description">{{ todo.description }}</textarea>
-              <button type="submit">💾 Save</button>
-            </form>
+        <span class="status {% if todo.completed %}completed{% else %}pending{% endif %}">
+          {% if todo.completed %}
+            ✅ Completed
+          {% else %}
+            ⏳ Pending
           {% endif %}
+        </span>
 
-          <small>Created: {{ todo.created_at|date:"M d, Y H:i" }}</small>
-          <small>Last Updated: {{ todo.updated_at|date:"M d, Y H:i" }}</small>
-        </li>
+        {% if not todo.completed %}
+          <form method="POST" action="{% url 'mark_completed' todo.id %}" class="mark-completed-form">
+            {% csrf_token %}
+            <button type="submit">✔️ Mark Completed</button>
+          </form>
+
+          <button class="edit-btn" onclick="toggleEditForm({{ todo.id }})">✏️ Edit</button>
+
+          <form method="POST" action="{% url 'edit_todo' todo.id %}" id="edit-form-{{ todo.id }}" class="edit-form" style="display: none;">
+            {% csrf_token %}
+            <input type="text" name="title" value="{{ todo.title }}" required />
+            <textarea name="description">{{ todo.description }}</textarea>
+            <input type="date" name="due_date" value="{{ todo.due_date|date:'Y-m-d' }}" />
+            <button type="submit">💾 Save</button>
+          </form>
+        {% endif %}
+
+        <small>Created: {{ todo.created_at|date:"M d, Y H:i" }}</small>
+        <small>Last Updated: {{ todo.updated_at|date:"M d, Y H:i" }}</small>
+      </li>
       {% empty %}
         <li>No todos yet.</li>
       {% endfor %}

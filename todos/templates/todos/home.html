@@ -287,6 +287,9 @@
       {% for todo in todos %}
       <li>
         <strong>{{ todo.title }}</strong>
+        {% if todo.category %}
+  <small style="color: var(--primary); font-weight: 600;">[{{ todo.category.name }}]</small>
+        {% endif %}
         <p>{{ todo.description }}</p>
 
         {% if todo.due_date %}
@@ -315,12 +318,19 @@
           <button class="edit-btn" onclick="toggleEditForm({{ todo.id }})">✏️ Edit</button>
 
           <form method="POST" action="{% url 'edit_todo' todo.id %}" id="edit-form-{{ todo.id }}" class="edit-form" style="display: none;">
-            {% csrf_token %}
-            <input type="text" name="title" value="{{ todo.title }}" required />
-            <textarea name="description">{{ todo.description }}</textarea>
-            <input type="date" name="due_date" value="{{ todo.due_date|date:'Y-m-d' }}" />
-            <button type="submit">💾 Save</button>
-          </form>
+  {% csrf_token %}
+  <input type="text" name="title" value="{{ todo.title }}" required />
+  <textarea name="description">{{ todo.description }}</textarea>
+  <input type="date" name="due_date" value="{{ todo.due_date|date:'Y-m-d' }}" />
+  <select name="category">
+    <option value="">No Category</option>
+    {% for category in categories %}
+      <option value="{{ category.id }}" {% if todo.category and todo.category.id == category.id %}selected{% endif %}>{{ category.name }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">💾 Save</button>
+</form>
+
         {% endif %}
 
         <small>Created: {{ todo.created_at|date:"M d, Y H:i" }}</small>

@@ -7,19 +7,26 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.utils import timezone
 from datetime import date
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def home(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
     if request.method == 'POST':
         form = TodoForm(request.POST)
         if form.is_valid():
-            form.save()
+            todo = form.save(commit=False)  
+            todo.user = request.user        
+            todo.save()                    
             return redirect('home')
     else:
         form = TodoForm()
 
-    todos = Todo.objects.all().order_by('-created_at')
+    todos = Todo.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'todos/home.html', {'form': form, 'todos': todos, 'today': date.today()})
+
 
 def mark_completed(request, todo_id):
     if request.method == 'POST':

@@ -2,15 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Login</title>
+  <title>Login - Structured</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
     :root {
-      --primary: #7b68ee;
-      --bg: #f7f8fa;
-      --text: #333;
-      --muted: #888;
+      --primary-color: #3b82f6;
+      --secondary-color: #e0e7ff;
       --card-bg: #ffffff;
-      --border: #e0e0e0;
+      --sidebar-bg: #1e40af;
+      --text-primary: #1f2937;
+      --muted: #6b7280;
+      --divider: #e5e7eb;
+      --shadow: rgba(0, 0, 0, 0.1);
     }
 
     * {
@@ -20,32 +24,31 @@
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(90deg, var(--sidebar-bg) 50%, var(--secondary-color) 50%);
+      color: var(--text-primary);
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       padding: 20px;
     }
 
-    .login-box {
-      background: var(--card-bg);
+    .login-container {
+      background-color: var(--card-bg);
       padding: 40px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      border-radius: 20px;
+      box-shadow: 0 12px 24px var(--shadow);
+      max-width: 420px;
       width: 100%;
-      max-width: 400px;
     }
 
-    .login-box h2 {
-      font-size: 1.6rem;
+    .login-container h2 {
+      font-size: 2rem;
       font-weight: 600;
-      color: var(--primary);
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 24px;
+      color: var(--primary-color);
     }
 
     label {
@@ -58,48 +61,69 @@
     input[type="text"],
     input[type="password"] {
       width: 100%;
-      padding: 12px 14px;
+      padding: 14px;
       margin-bottom: 20px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background-color: #fff;
+      border-radius: 12px;
+      border: 1.5px solid var(--divider);
       font-size: 1rem;
+      transition: border 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
     }
 
     button {
       width: 100%;
-      padding: 12px;
-      background-color: var(--primary);
+      padding: 14px;
+      background-color: var(--primary-color);
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 30px;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 1.1rem;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
     button:hover {
-      background-color: #6a5acd;
+      background-color: #2563eb;
     }
 
     .messages p {
-      background-color: #ff4c4c;
-      padding: 10px 15px;
-      border-radius: 6px;
-      margin-bottom: 18px;
-      font-weight: 600;
-      font-size: 0.9rem;
+      background-color: #f87171;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 20px;
       color: white;
       text-align: center;
-      box-shadow: 0 2px 8px rgba(255, 76, 76, 0.5);
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(248, 113, 113, 0.4);
+    }
+
+    .register-link {
+      margin-top: 18px;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    .register-link a {
+      color: var(--primary-color);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <div class="login-box">
-    <h2>Login</h2>
+  <div class="login-container">
+    <h2>Welcome Back</h2>
 
     {% if messages %}
     <div class="messages">
@@ -118,10 +142,11 @@
       <input type="password" name="password" id="password" required>
 
       <button type="submit">Login</button>
-
-      <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
-
     </form>
+
+    <div class="register-link">
+      Don’t have an account? <a href="{% url 'register' %}">Register here</a>
+    </div>
   </div>
 
 </body>

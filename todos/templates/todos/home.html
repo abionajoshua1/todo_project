@@ -7,12 +7,12 @@
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
     :root {
-      --primary-color: #3b82f6; /* fresh blue */
-      --secondary-color: #e0e7ff; /* light periwinkle */
+      --primary-color: #3b82f6;
+      --secondary-color: #e0e7ff;
       --card-bg: #ffffff;
-      --sidebar-bg: #1e40af; /* dark blue */
-      --text-primary: #1f2937; /* dark slate */
-      --text-muted: #6b7280; /* gray */
+      --sidebar-bg: #1e40af;
+      --text-primary: #1f2937;
+      --text-muted: #6b7280;
       --divider-color: #e5e7eb;
       --shadow: rgba(0, 0, 0, 0.1);
     }
@@ -86,7 +86,6 @@
       background: var(--secondary-color);
     }
 
-    /* Floating cards */
     .card {
       background: var(--card-bg);
       box-shadow: 0 12px 20px var(--shadow);
@@ -119,17 +118,35 @@
     li {
       border-bottom: 1px solid var(--divider-color);
       padding: 1rem 0;
-      color: var(--text-primary);
     }
 
     li:last-child {
       border-bottom: none;
     }
 
-    li strong {
+    .todo-item {
+      margin-bottom: 2rem;
+    }
+
+    .todo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+
+    .todo-title {
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: var(--primary-color);
+    }
+
+    .todo-description {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      white-space: pre-line;
     }
 
     .status {
@@ -151,7 +168,6 @@
       color: #2563eb;
     }
 
-    /* Form styling */
     form.add-todo-form {
       display: flex;
       flex-direction: column;
@@ -196,7 +212,6 @@
       background-color: #2563eb;
     }
 
-    /* Edit button */
     .edit-btn {
       background: none;
       border: 1.5px solid var(--primary-color);
@@ -222,12 +237,6 @@
       gap: 1rem;
     }
 
-    .edit-form input,
-    .edit-form textarea,
-    .edit-form select {
-      font-size: 1rem;
-    }
-
     form.mark-completed-form button {
       background: transparent;
       border: 1.5px solid var(--primary-color);
@@ -246,7 +255,6 @@
       color: white;
     }
 
-    /* Scrollbar styling for cards */
     .card::-webkit-scrollbar {
       width: 8px;
     }
@@ -261,7 +269,6 @@
       border-radius: 20px;
     }
 
-    /* Responsive */
     @media (max-width: 1024px) {
       .main-content {
         flex-direction: column;
@@ -311,7 +318,6 @@
 
   <div class="main-content">
 
-    <!-- Add Todo card first -->
     <section class="card add-todo-form-section">
       <h1>Add New Todo</h1>
       <form method="POST" class="add-todo-form">
@@ -321,17 +327,19 @@
       </form>
     </section>
 
-    <!-- Todo List card second -->
     <section class="card todo-list">
       <h1>My Todo List</h1>
       <ul>
         {% for todo in todos %}
-          <li>
-            <strong>{{ todo.title }}</strong>
-            {% if todo.category %}
-              <small style="color: var(--primary-color); font-weight: 600;">[{{ todo.category.name }}]</small>
-            {% endif %}
-            <p>{{ todo.description }}</p>
+          <li class="todo-item">
+            <div class="todo-header">
+              <span class="todo-title">{{ todo.title }}</span>
+              {% if todo.category %}
+                <small style="color: var(--primary-color); font-weight: 600;">[{{ todo.category.name }}]</small>
+              {% endif %}
+            </div>
+
+            <div class="todo-description">{{ todo.description }}</div>
 
             {% if todo.due_date %}
               <p><strong>Due:</strong> {{ todo.due_date }}</p>

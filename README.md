@@ -1,27 +1,22 @@
 📝 Django Todo App
 
-A simple Todo list web application built with Django. Users can add, view, and mark tasks as completed.
+A simple and user-friendly Todo List web application built with Django. Users can create, manage, categorize, and track tasks with due dates.
 
- 🚀 Features
 
-- Add new tasks with a title and description
-- View all pending and completed tasks
-- Mark tasks as completed
-- Clean and responsive interface
+🚀 Features
+
+- 🆕 Add new tasks with title and description  
+- 📋 View all pending and completed tasks  
+- ✅ Mark tasks as completed  
+- 🗂️ Categorize tasks  
+- ⏰ Set due dates for tasks  
+- ✏️ Edit existing tasks  
+- 🔐 User-specific task lists (each user sees their own todos)  
+- 💻 Clean and responsive interface (HTML/CSS)
+
 
 🛠️ Tech Stack
 
-- Python 3.x
-- Django 4.x
-- HTML & CSS
-
-📌 Todo
-
- Add user authentication
-
- Add task editing
-
- Deploy online (e.g., Heroku, Render)
-
- improve the styling
- 
+- Python 3.x  
+- Django 4.x  
+- HTML & CSS (templates)

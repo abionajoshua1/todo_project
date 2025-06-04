@@ -367,7 +367,7 @@
                 <textarea name="description">{{ todo.description }}</textarea>
                 <input type="date" name="due_date" value="{{ todo.due_date|date:'Y-m-d' }}" />
                 <select name="category">
-                  <option value="">No Category</option>
+                  <option value="" {%if not todo.category%}selected{% endif %}>No Category</option>
                   {% for category in categories %}
                     <option value="{{ category.id }}" {% if todo.category and todo.category.id == category.id %}selected{% endif %}>
                       {{ category.name }}

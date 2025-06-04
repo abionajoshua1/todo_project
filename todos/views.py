@@ -1,6 +1,6 @@
 # todos/views.py
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Todo
+from .models import Todo, Categories as Category
 from .forms import TodoForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
@@ -25,7 +25,8 @@ def home(request):
         form = TodoForm()
 
     todos = Todo.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'todos/home.html', {'form': form, 'todos': todos, 'today': date.today()})
+    categories = Category.objects.all()  # Assuming you have a Categories model
+    return render(request, 'todos/home.html', {'form': form, 'todos': todos,'categories': categories, 'today': date.today()})
 
 
 def mark_completed(request, todo_id):
@@ -73,6 +74,7 @@ def register_view(request):
 
 def edit_todo(request, id):
     todo = get_object_or_404(Todo, id=id)
+    # categories = Category.objects.all()
     if request.method == 'POST':
        form = TodoForm(request.POST, instance=todo)
        if form.is_valid():

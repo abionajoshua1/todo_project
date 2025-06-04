@@ -153,10 +153,10 @@
       <label for="{{ form.username.id_for_label }}">Username</label>
       {{ form.username }}
       {{ form.username.errors }}
-
+{% comment %} 
       <label for="{{ form.email.id_for_label }}">Email</label>
       {{ form.email }}
-      {{ form.email.errors }}
+      {{ form.email.errors }} {% endcomment %}
 
       <label for="{{ form.password1.id_for_label }}">Password</label>
       {{ form.password1 }}

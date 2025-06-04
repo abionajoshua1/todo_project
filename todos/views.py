@@ -1,7 +1,7 @@
 # todos/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Todo, Categories as Category
-from .forms import TodoForm
+from .forms import TodoForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
@@ -35,9 +35,19 @@ def mark_completed(request, todo_id):
         todo.completed = True
         todo.save()
     return redirect('home')
-    
+
+@login_required
 def profile_view(request):
-    return render(request, 'profile.html')
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = UserProfileForm(instance=request.user)
+    
+    return render(request, 'profile.html', {'form': form})
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -60,7 +70,7 @@ def custom_logout_view(request):
 
 def register_view(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserProfileForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Registration successful. You can now log in.')
@@ -68,7 +78,7 @@ def register_view(request):
         else:     
             return render(request, 'todos/register.html', {'form': form})
     else:
-        form = UserCreationForm()
+        form = UserProfileForm()
         return render(request, 'todos/register.html', {'form': form})
     
 

@@ -1,22 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>User Profile</title>
+  <meta charset="UTF-8" />
+  <title>User Profile</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    :root {
+      --primary-color: #3b82f6;
+      --secondary-color: #e0e7ff;
+      --text-primary: #1f2937;
+      --muted: #6b7280;
+      --divider: #e5e7eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--secondary-color);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+
+    h2 {
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 32px;
+      font-size: 2.5rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    form {
+      max-width: 600px;
+      margin-top: 40px;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+
+    form input[type="text"],
+    form input[type="email"] {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 24px;
+      border-radius: 8px;
+      border: 1.5px solid var(--divider);
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    form input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+    }
+
+    button {
+      padding: 14px 32px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2563eb;
+    }
+  </style>
 </head>
 <body>
-   <h2>User Profile</h2>
-<p><strong>Username:</strong> {{ user.username }}</p>
-{% comment %} <p><strong>First Name:</strong> {{ user.first_name }}</p>
-<p><strong>Last Name:</strong> {{ user.last_name }}</p> {% endcomment %}
 
-{% comment %} <h2>Update Your Name</h2> {% endcomment %}
+  <h2>User Profile</h2>
+
+  <p><strong>Username:</strong> {{ user.username }}</p>
+
 <strong>
-    <form method="POST">
+     <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Update</button>
-</form>
+  </form>
 </strong>
+
 </body>
 </html>

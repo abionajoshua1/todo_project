@@ -28,3 +28,5 @@ class Categories(models.Model):
     def __str__(self):
         return self.name
     
+class Profile(models.Model):
+    pass

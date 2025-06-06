@@ -1,15 +1,15 @@
 # todos/views.py
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Todo, Categories as Category
-from .forms import TodoForm, UserProfileForm
+from .models import Todo, Categories as Category, Profile
+from .forms import TodoForm, UserProfileForm, UserRegistrationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.utils import timezone
 from datetime import date
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 
-@login_required
+# @login_required
 def home(request):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -36,17 +36,19 @@ def mark_completed(request, todo_id):
         todo.save()
     return redirect('home')
 
-@login_required
+# @login_required
 def profile_view(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Profile updated successfully.')
             return redirect('profile')
     else:
-        form = UserProfileForm(instance=request.user)
+        form = UserProfileForm(instance=profile)
     
-    return render(request, 'profile.html', {'form': form})
+    return render(request, 'todos/profile.html', {'form': form})
 
 
 def login_view(request):
@@ -70,16 +72,24 @@ def custom_logout_view(request):
 
 def register_view(request):
     if request.method == 'POST':
-        form = UserProfileForm(request.POST)
-        if form.is_valid():
-            form.save()
+        user_form = UserRegistrationForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
+            
             messages.success(request, 'Registration successful. You can now log in.')
             return redirect('login')
-        else:     
-            return render(request, 'todos/register.html', {'form': form})
+        
     else:
-        form = UserProfileForm()
-        return render(request, 'todos/register.html', {'form': form})
+        user_form = UserRegistrationForm()
+        profile_form = UserProfileForm()
+        
+        context  = {'user_form': user_form, 'profile_form': profile_form}
+        return render(request, 'todos/register.html', context)
     
 
 def edit_todo(request, id):

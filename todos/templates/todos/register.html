@@ -51,13 +51,6 @@
       color: var(--primary-color);
     }
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
     input[type="text"],
     input[type="email"],
     input[type="password"] {
@@ -149,24 +142,12 @@
 
     <form method="post" novalidate>
       {% csrf_token %}
+      {{ user_form.as_p }}
+      {{profile_form.as_p }}
 
-      <label for="{{ form.username.id_for_label }}">Username</label>
-      {{ form.username }}
-      {{ form.username.errors }}
-{% comment %} 
-      <label for="{{ form.email.id_for_label }}">Email</label>
-      {{ form.email }}
-      {{ form.email.errors }} {% endcomment %}
-
-      <label for="{{ form.password1.id_for_label }}">Password</label>
-      {{ form.password1 }}
-      {{ form.password1.errors }}
-
-      <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
-      {{ form.password2 }}
-      {{ form.password2.errors }}
-
+      {% if user_form.errors %}
       <button type="submit">Register</button>
+      {% endif %}
     </form>
 
     <div class="login-link">

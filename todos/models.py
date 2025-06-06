@@ -18,9 +18,7 @@ class Todo(models.Model):
 
     def __str__(self):
         return self.title
-    
-# class User(models.Model):
-#     pass
+
 
 class Categories(models.Model):
     name = models.CharField(max_length=100)
@@ -29,4 +27,12 @@ class Categories(models.Model):
         return self.name
     
 class Profile(models.Model):
-    pass
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    first_name = models.CharField(max_length=30, default='First')
+    last_name = models.CharField(max_length=30, default='Last')
+    
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+    
+    

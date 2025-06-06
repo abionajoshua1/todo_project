@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Tasks - Todo App</title>
+  <style>
+    /* Basic Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #f0f4f8;
+      color: #333;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background-color: #1e40af;
+      color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar h2 {
+      font-weight: 600;
+      margin-bottom: 30px;
+      font-size: 1.8rem;
+    }
+
+    .sidebar nav a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin-bottom: 15px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .sidebar nav a:hover {
+      background-color: #2563eb;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex-grow: 1;
+      padding: 40px;
+      background: white;
+      border-radius: 0 20px 20px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow-y: auto;
+    }
+
+    .main-content h1 {
+      margin-bottom: 20px;
+      font-weight: 700;
+      color: #1e40af;
+    }
+
+    /* Task List */
+    .task-list {
+      list-style: none;
+    }
+
+    .task-list li {
+      background-color: #e0e7ff;
+      margin-bottom: 15px;
+      padding: 15px 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .task-list li:hover {
+      background-color: #c7d2fe;
+    }
+
+    .task-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #1e40af;
+    }
+
+    .task-due-date {
+      font-size: 0.9rem;
+      color: #475569;
+    }
+
+    /* Completed tasks style */
+    .completed {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    /* Add New Task Button */
+    .add-task-btn {
+      margin-top: 30px;
+      display: inline-block;
+      background-color: #3b82f6;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .add-task-btn:hover {
+      background-color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <!-- Top Section: Avatar Right, Title Left -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+    <h2 style="margin: 0; font-size: 1.6rem;">Todo App</h2>
+    <div style="text-align: right;">
+      <img src="https://ui-avatars.com/api/?name={{ request.user.get_full_name|urlencode }}&background=1e40af&color=fff&size=64"
+           alt="User Avatar"
+           style="border-radius: 50%; width: 50px; height: 50px;" />
+      <p style="font-size: 0.8rem; color: white; margin-top: 5px;">{{ request.user.get_full_name }}</p>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="{% url 'task_list' %}">My Tasks</a>
+    <a href="{% url 'add_task' %}">Add Task</a>
+    <a href="{% url 'logout' %}">Logout</a>
+  </nav>
+</aside>
+
+
+
+  <main class="main-content">
+    <h1>Your Tasks</h1>
+
+    {% if tasks %}
+    <ul class="task-list">
+      {% for task in tasks %}
+        <li class="{% if task.completed %}completed{% endif %}">
+          <div class="task-title">{{ task.title }}</div>
+          <div class="task-due-date">{{ task.due_date|date:"M d, Y" }}</div>
+        </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>You have no tasks yet. <a href="{% url 'add_task' %}">Add one now!</a></p>
+    {% endif %}
+
+    <a href="{% url 'add_task' %}" class="add-task-btn">Add Task</a>
+  </main>
+
+</body>
+</html>

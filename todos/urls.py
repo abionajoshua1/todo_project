@@ -11,5 +11,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('edit/<int:id>/', views.edit_todo, name='edit_todo'),
     path('register/', views.register_view, name='register'),
+    path('tasks/', views.task_list, name='task_list'),
+    path('tasks/add/', views.add_task, name='add_task'),
 
 ]

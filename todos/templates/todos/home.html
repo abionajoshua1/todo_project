@@ -311,7 +311,8 @@
     <h2>Structured</h2>
     <nav>
       <a href="{% url 'profile' %}">Profile</a>
-      <a href="{% url 'home' %}">Tasks</a>
+      {% comment %} <a href="{% url 'home' %}">Tasks</a> {% endcomment %}
+      <a href="{% url 'task_list' %}">Tasks</a>
       <a href="{% url 'logout' %}">Logout</a>
     </nav>
   </div>

@@ -102,3 +102,22 @@ def edit_todo(request, id):
            return redirect('home')
        
     return redirect('home')
+
+def task_list(request):
+    tasks = Todo.objects.filter(user=request.user).order_by('due_date')
+    
+    return render(request, 'todos/task_list.html', {'tasks': tasks})
+
+def add_task(request):
+    if request.method == 'POST':
+        form = TodoForm(request.POST)
+        if form.is_valid():
+           new_task = form.save(commit=False)
+           new_task.user = request.user  # Associate the task with the logged-in user
+           new_task.save()
+
+           return redirect('task_list')  # Redirect to the task list after saving
+    else:
+        form = TodoForm()
+        
+    return render(request, 'todos/add_task.html', {'form': form})

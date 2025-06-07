@@ -90,11 +90,38 @@
     button:hover {
       background-color: #2563eb;
     }
+
+    .top-right {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+}
+
+.top-right a {
+  padding: 10px 20px;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.top-right a:hover {
+  background-color: #1e40af;
+}
+
   </style>
 </head>
 <body>
 
+  <div class='top-right'>
+    <a href="{% url 'home' %}"> Back to Home </a>
+  </div>
+  
   <h2>User Profile</h2>
+
 
   <p><strong>Username:</strong> {{ user.username }}</p>
 

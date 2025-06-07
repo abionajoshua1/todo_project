@@ -8,7 +8,9 @@ from django.contrib.auth.forms import UserCreationForm
 class TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
-        fields = ['title', 'description', 'due_date', 'categories'] #'completed'
+        fields = ['title', 'description', 'due_date', 'categories'] 
+        exclude = ['user']
+        #'completed'
         
         widgets = {
             'due_date': forms.DateInput(attrs={'type': 'date'}),

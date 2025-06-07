@@ -120,6 +120,23 @@
     .add-task-btn:hover {
       background-color: #2563eb;
     }
+
+  .back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #1e40af;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+.back-btn:hover {
+  background-color: #3b82f6;
+}
+
   </style>
 </head>
 <body>
@@ -129,22 +146,24 @@
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
     <h2 style="margin: 0; font-size: 1.6rem;">Todo App</h2>
     <div style="text-align: right;">
-      <img src="https://ui-avatars.com/api/?name={{ request.user.get_full_name|urlencode }}&background=1e40af&color=fff&size=64"
+      {% comment %} <img src="https://ui-avatars.com/api/?name={{ request.user.get_full_name|urlencode }}&background=1e40af&color=fff&size=64"
            alt="User Avatar"
-           style="border-radius: 50%; width: 50px; height: 50px;" />
-      <p style="font-size: 0.8rem; color: white; margin-top: 5px;">{{ request.user.get_full_name }}</p>
+           style="border-radius: 50%; width: 50px; height: 50px;" /> {% endcomment %}
+      {% comment %} <p style="font-size: 0.8rem; color: white; margin-top: 5px;">{{ request.user.get_full_name }}</p> {% endcomment %}
     </div>
   </div>
 
   <!-- Navigation -->
   <nav>
-    <a href="{% url 'task_list' %}">My Tasks</a>
-    <a href="{% url 'add_task' %}">Add Task</a>
+    {% comment %} <a href="{% url 'task_list' %}">My Tasks</a> {% endcomment %}
+    {% comment %} <a href="{% url 'add_task' %}">Add Task</a> {% endcomment %}
+    <a href="{% url 'home' %}">Home</a>
     <a href="{% url 'logout' %}">Logout</a>
   </nav>
 </aside>
 
 
+  
 
   <main class="main-content">
     <h1>Your Tasks</h1>

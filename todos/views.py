@@ -40,7 +40,7 @@ def mark_completed(request, todo_id):
 def profile_view(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=request.user)
+        form = UserProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully.')

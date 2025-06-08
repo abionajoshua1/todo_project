@@ -19,7 +19,11 @@ class TodoForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name']
+        fields = ['first_name', 'last_name', 'gender', 'date_of_birth']
+        
+        widgets = {
+            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
+        }
 
 
 class UserRegistrationForm(UserCreationForm):

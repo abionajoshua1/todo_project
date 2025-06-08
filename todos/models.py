@@ -28,11 +28,21 @@ class Categories(models.Model):
     
 class Profile(models.Model):
     # user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+    
+    GENDER_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other'),
+        ('prefer_not_to_say', 'Prefer not to say'),
+    ]
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     first_name = models.CharField(max_length=30, default='First')
     last_name = models.CharField(max_length=30, default='Last')
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
+    gender = models.CharField(max_length=20, choices=GENDER_CHOICES, blank=True, null=True)
+    date_of_birth = models.DateField(null=True, blank=True)
     
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

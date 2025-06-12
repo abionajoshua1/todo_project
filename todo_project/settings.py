@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+AUTH_USER_MODEL = 'todos.CustomUser'
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -123,3 +125,8 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # LOGIN_URL = '/login/'
+
+# AUNTHENTICATION_BACKENDS = [
+#     'todos.backends.EmailBackend',
+#     'django.contrib.auth.backends.ModelBackend',
+# ]

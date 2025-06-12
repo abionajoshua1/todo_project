@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings    
 # Create your models here.
 class Todo(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
     title = models.CharField(max_length=200)
     description = models.TextField()
     completed = models.BooleanField(default=False)
@@ -11,6 +12,7 @@ class Todo(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     due_date = models.DateField(null=True, blank=True)
     categories = models.ForeignKey('Categories', on_delete=models.SET_NULL, related_name='todos', null=True, blank=True)
+    
     
     def is_overdue(self):
         return self.due_date and self.due_date < timezone.now().date()
@@ -36,7 +38,7 @@ class Profile(models.Model):
         ('prefer_not_to_say', 'Prefer not to say'),
     ]
     
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
     first_name = models.CharField(max_length=30, default='First')
     last_name = models.CharField(max_length=30, default='Last')
     created_at = models.DateTimeField(default=timezone.now)
@@ -48,3 +50,8 @@ class Profile(models.Model):
         return f'{self.first_name} {self.last_name}'
     
     
+class CustomUser(AbstractUser):
+    email = models.EmailField(unique=True)
+    
+    def __str__(self):
+        return self.username

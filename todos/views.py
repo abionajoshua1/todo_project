@@ -51,6 +51,7 @@ def profile_view(request):
     return render(request, 'todos/profile.html', {'form': form})
 
 
+
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -88,10 +89,14 @@ def register_view(request):
         user_form = UserRegistrationForm()
         profile_form = UserProfileForm()
         
-        context  = {'user_form': user_form, 'profile_form': profile_form}
-        return render(request, 'todos/register.html', context)
+    context  = {
+    'user_form': user_form, 
+    'profile_form': profile_form
+    }
+        
+    return render(request, 'todos/register.html', context)
+        
     
-
 def edit_todo(request, id):
     todo = get_object_or_404(Todo, id=id)
     # categories = Category.objects.all()

@@ -39,17 +39,25 @@ def mark_completed(request, todo_id):
 # @login_required
 def profile_view(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
+    todos = Todo.objects.filter(user=request.user)
+
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=profile)
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully.')
             return redirect('profile')
     else:
         form = UserProfileForm(instance=profile)
-    
-    return render(request, 'todos/profile.html', {'form': form})
 
+    context = {
+        'form': form,
+        'profile': profile,
+        'total_tasks': todos.count(),
+        'completed_tasks': todos.filter(completed=True).count(),
+        'pending_tasks': todos.filter(completed=False).count(),
+    }
+    return render(request, 'todos/profile.html', context)
 
 
 def login_view(request):
@@ -65,6 +73,7 @@ def login_view(request):
             messages.error(request, 'Invalid username or password')
     
     return render(request, 'todos/login.html')
+
 
 def custom_logout_view(request):
     logout(request)

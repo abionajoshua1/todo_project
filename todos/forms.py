@@ -22,10 +22,11 @@ class TodoForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name', 'gender', 'date_of_birth']
+        fields = ['first_name', 'last_name', 'gender', 'date_of_birth'] #'bio', ,  'avatar'
         
         widgets = {
             'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
+            # 'bio': forms.Textarea(attrs={'rows': 3}),
         }
 
 

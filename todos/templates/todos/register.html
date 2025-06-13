@@ -27,19 +27,19 @@
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(90deg, var(--sidebar-bg) 50%, var(--secondary-color) 50%);
       color: var(--text-primary);
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding: 20px;
+      padding: 40px 20px;
+      overflow-y: auto;
     }
 
     .register-container {
       background-color: var(--card-bg);
-      padding: 40px;
+      padding: 40px 30px;
       border-radius: 20px;
       box-shadow: 0 12px 24px var(--shadow);
-      max-width: 480px;
+      max-width: 500px;
       width: 100%;
     }
 
@@ -53,7 +53,9 @@
 
     input[type="text"],
     input[type="email"],
-    input[type="password"] {
+    input[type="password"],
+    input[type="file"],
+    textarea {
       width: 100%;
       padding: 14px;
       margin-bottom: 20px;
@@ -63,7 +65,7 @@
       transition: border 0.3s ease;
     }
 
-    input:focus {
+    input:focus, textarea:focus {
       outline: none;
       border-color: var(--primary-color);
       box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
@@ -80,6 +82,7 @@
       font-size: 1.1rem;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      margin-top: 10px;
     }
 
     button:hover {
@@ -126,7 +129,7 @@
       display: none;
     }
 
-    form p{
+    form p {
       margin-bottom: 20px;
     }
   </style>
@@ -144,14 +147,12 @@
     </div>
     {% endif %}
 
-    <form method="post" novalidate>
+    <form method="post" enctype="multipart/form-data" novalidate>
       {% csrf_token %}
       {{ user_form.as_p }}
+      {{ profile_form.as_p }}
 
-      {{profile_form.as_p }}
-
-      <button type="submit">Register</button>
-      
+      <button type="submit">Create Account</button>
     </form>
 
     <div class="login-link">

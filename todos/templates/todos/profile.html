@@ -26,17 +26,17 @@
     box-shadow: 0 8px 24px var(--shadow);
     padding: 40px;
   }
-  .header {
+  {% comment %} .header {
     display: flex;
     align-items: center;
     gap: 20px;
     margin-bottom: 30px;
-  }
-  .avatar {
+  } {% endcomment %}
+  {% comment %} .avatar {
     width: 96px; height: 96px;
     border-radius: 50%;
     object-fit: cover;
-  }
+  } {% endcomment %}
   .name {
     font-size: 1.8rem;
     margin: 0; color: var(--text);
@@ -91,12 +91,13 @@
 </head>
 <body>
 
+
 <div class="card">
   <div class="header">
-    <img src="{{ user.profile.avatar.url }}" alt="Avatar" class="avatar">
+    {% comment %} <img src="{{ user.profile.avatar.url }}" alt="Avatar" class="avatar"> {% endcomment %}
     <div>
       <h1 class="name">{{ user.get_full_name }}</h1>
-      <p class="username">@{{ user.username }}</p>
+      <strong><p class="username">{{ user.username }}</p></strong>
       <p class="email">{{ user.email }}</p>
     </div>
   </div>
@@ -116,19 +117,16 @@
     </div>
   </div>
 
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% comment %} <label for="id_bio">About Me</label>
-    {{ form.bio }} {% endcomment %}
-    {% comment %} <label for="id_avatar">Avatar</label>
-    <input type="file" name="avatar" id="id_avatar" accept="image/*"> {% endcomment %}
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
 
+  <div class="actions">
+    <button type="submit" class="button">Save Changes</button>
+    <a href="{% url 'home' %}" class="button">Back to Tasks</a>
+  </div>
+</form>
 
-    <div class="actions">
-      <button type="submit" class="button">Save Changes</button>
-      <a href="{% url 'home' %}" class="button">Back to Tasks</a>
-    </div>
-  </form>
 </div>
 
 </body>

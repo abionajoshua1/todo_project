@@ -7,6 +7,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.utils import timezone
 from datetime import date
+from django.contrib.auth.decorators import login_required
+
 # from django.contrib.auth.decorators import login_required
 
 # @login_required
@@ -36,7 +38,7 @@ def mark_completed(request, todo_id):
         todo.save()
     return redirect('home')
 
-# @login_required
+@login_required
 def profile_view(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
     todos = Todo.objects.filter(user=request.user)

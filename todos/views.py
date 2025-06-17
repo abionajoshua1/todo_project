@@ -31,13 +31,6 @@ def home(request):
     return render(request, 'todos/home.html', {'form': form, 'todos': todos,'categories': categories, 'today': date.today()})
 
 
-def mark_completed(request, todo_id):
-    if request.method == 'POST':
-        todo = get_object_or_404(Todo, id=todo_id)
-        todo.completed = True
-        todo.save()
-    return redirect('home')
-
 @login_required
 def profile_view(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
@@ -107,7 +100,13 @@ def register_view(request):
         
     return render(request, 'todos/register.html', context)
         
+        
+def task_list(request):
+    tasks = Todo.objects.filter(user=request.user).order_by('due_date')
     
+    return render(request, 'todos/task_list.html', {'tasks': tasks})
+
+
 def edit_todo(request, id):
     todo = get_object_or_404(Todo, id=id)
     # categories = Category.objects.all()
@@ -119,10 +118,6 @@ def edit_todo(request, id):
        
     return redirect('home')
 
-def task_list(request):
-    tasks = Todo.objects.filter(user=request.user).order_by('due_date')
-    
-    return render(request, 'todos/task_list.html', {'tasks': tasks})
 
 def add_task(request):
     if request.method == 'POST':
@@ -137,3 +132,11 @@ def add_task(request):
         form = TodoForm()
         
     return render(request, 'todos/add_task.html', {'form': form})
+
+
+def mark_completed(request, todo_id):
+    if request.method == 'POST':
+        todo = get_object_or_404(Todo, id=todo_id)
+        todo.completed = True
+        todo.save()
+    return redirect('home')

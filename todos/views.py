@@ -116,6 +116,9 @@ def edit_todo(request, id):
            form.save()
            return redirect('home')
        
+    else:
+        form = TodoForm(instance=todo)
+       
     return redirect('home')
 
 

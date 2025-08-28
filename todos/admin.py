@@ -11,5 +11,6 @@ class TodoAdmin(admin.ModelAdmin):
     list_filter = ('user', 'completed', 'categories')
     search_fields = ('title',)
     ordering = ('user',)
+
 admin.site.register(Todo, TodoAdmin)
 admin.site.register(Categories)

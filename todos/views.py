@@ -110,6 +110,7 @@ def task_list(request):
 def edit_todo(request, id):
     todo = get_object_or_404(Todo, id=id)
     # categories = Category.objects.all()
+    
     if request.method == 'POST':
        form = TodoForm(request.POST, instance=todo)
        if form.is_valid():

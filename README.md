@@ -20,4 +20,3 @@ A simple and user-friendly Todo List web application built with Django. Users ca
 - Python 3.x  
 - Django 4.x  
 - HTML & CSS (templates)
-- Deployed on Render
